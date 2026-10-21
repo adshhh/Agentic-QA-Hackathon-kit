@@ -340,6 +340,62 @@ these decisions produce is drawn in [ARCHITECTURE.md](ARCHITECTURE.md).
   the planted bug.
 - **Trade-off:** It only covers backend faults. Frontend-only faults would need a patched frontend copy.
 
+## D26 · Fixes from the first full run
+
+- **What the first full run showed:** 24 PASS / 4 FAIL / 5 UNVERIFIED, $2.19. All four FAILs were real
+  defects, confirmed 3-0 by the review: zero/negative amounts accepted (−5 moved money backwards),
+  overdraft accepted (balance −$0.01), end date excluded from date filters, and pending/failed rows
+  showing $0.00 instead of their amount. The UNVERIFIED ones exposed harness weaknesses:
+  1. **The review looked at the first failing input, not the strongest.** For code-generated inputs,
+     the blank input failed only because of a weak message check, so the reviewers rejected it,
+     discarding the inputs where money actually moved. *Fix:* review the failing input whose
+     failed checks are most objective (side effects and invariants first).
+  2. **Plan rewrites hit the output cap** (7 times). *Fix:* higher caps, lower thinking depth for
+     follow-up phases (critique/revise MEDIUM, review/judge/recover/report LOW; plan and interpret keep
+     the eval-validated default), and a 14-step / 6-check limit per plan.
+  3. **Subjective judge questions demanded more than the PRD** (e.g. that a message say "positive").
+     *Fix:* questions may only ask what the PRD wording requires, and message checks are kept
+     separate from objective side-effect checks.
+  4. **Network drops while the laptop slept** were not retried, and one request hung. *Fix:*
+     transport errors are retried, and every model request has a 3-minute timeout.
+  5. **Client-side validation messages** live in string literals the repo scan missed. *Fix:* the
+     repo gap-fill also collects user-facing sentences from string literals.
+- **Trade-off:** Lower thinking depth on follow-up phases could reduce their quality; the review's
+  3-vote majority and the eval guard against that.
+
+## D27 · Fixes from the official run, and how they are reported
+
+- **Findings:**
+  - ACC-01 came out UNVERIFIED because its plan navigated to the API origin (an absolute URL)
+    instead of the app.
+  - Plan rewrites at reduced thinking depth came out degenerate.
+  - The report's narrative was vague (it only saw verdicts) and once misstated a count.
+- **Fixes:**
+  - `goto` must be an app path. Absolute URLs are rejected at validation, so the plan is rewritten.
+  - Plan rewrites use the model's default thinking depth again (reverting that part of D26).
+  - The narrative receives the failing checks' observed values and the exact verdict counts.
+- **Reporting choice:** The official run is published unchanged (ACC-01 stays UNVERIFIED in its
+  report). The fix is demonstrated in a separate, clearly labelled re-test run, rather than merged
+  silently into the official results.
+- **Trade-off:** The headline numbers show one avoidable UNVERIFIED; in exchange, the published run
+  is exactly what the agent produced.
+
+## D28 · Three general test-design rules, from fault injection
+
+- **Finding:** Fault injection (eval/FAULT_INJECTION.md) caught 2 of 4 observable planted bugs.
+  Both misses came from checks that would still pass with the property broken: an email check
+  that only looked for "@", and a filter test whose data couldn't reveal an ignored status filter.
+- **Decision:** Add three general rules to planning and self-critique, none of them DemoBank-specific:
+  1. **Property coverage:** each property word in the PRD quote needs a check that fails if the
+     property is absent.
+  2. **Discriminating data:** filter tests must use data containing rows that should be excluded.
+  3. **Enumeration coverage:** every item a PRD sentence lists must be exercised.
+- **Result:** 3 of 4 caught (email masking now caught); the healthy app's verdicts are unchanged (no
+  new false positives). The status-filter fault is still missed and is reported as a known limitation.
+- **Why we stopped there:** further prompt tuning against our own five faults would over-fit the suite.
+- **Note:** The official sample run predates D28. The ACC-01 re-test and all fault rounds after
+  round 1 use the final code.
+
 ---
 
 ## Still open

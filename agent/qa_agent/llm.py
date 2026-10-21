@@ -33,7 +33,7 @@ DEFAULT_MAX_OUTPUT_TOKENS = 6000
 # Thinking depth per phase (Gemini thinking_level). Plan/interpret keep the model default, the
 # setting validated by the eval; follow-up phases think less: they hit output caps otherwise, and
 # their task (fix, vote, judge one sentence, summarize) is narrower.
-THINKING_LEVEL = {"critique": "MEDIUM", "revise": "MEDIUM", "review": "LOW", "judge": "LOW",
+THINKING_LEVEL = {"critique": "MEDIUM", "review": "LOW", "judge": "LOW",
                   "recover": "LOW", "report": "LOW", "explore": "LOW", "ping": "LOW"}
 
 
@@ -184,7 +184,9 @@ class LLM:
             api_key = os.getenv("GEMINI_API_KEY")
             if not api_key:
                 raise LLMError("GEMINI_API_KEY is not set (add it to agent/.env)")
-            self._client = genai.Client(api_key=api_key)
+            # Timeout (ms): a request on a dead connection (e.g. after the machine slept) fails and
+            # is retried instead of hanging the whole run.
+            self._client = genai.Client(api_key=api_key, http_options=types.HttpOptions(timeout=180_000))
 
         level = THINKING_LEVEL.get(record.phase)
         config = types.GenerateContentConfig(
@@ -220,6 +222,7 @@ class LLM:
             self._client = openai.OpenAI(
                 base_url=os.environ["OPENAI_COMPAT_BASE_URL"],
                 api_key=os.getenv("OPENAI_COMPAT_API_KEY", "none"),
+                timeout=180,
             )
         messages = []
         if system:

@@ -49,6 +49,13 @@ def test_plan_with_unknown_controls_and_unsaved_variables_is_rejected():
         assert expected in problems
 
 
+def test_goto_to_another_origin_is_rejected():
+    plan = _plan([Step(action="goto", value="http://localhost:8000/"),
+                  Step(action="read_url", save_as="u")],
+                 [Check(description="d", kind="functional", expression="u == '/'")])
+    assert any("absolute URL" in p for p in validate_plan(plan, MapIndex(APP_MAP)))
+
+
 def test_fact_check_removes_sentences_with_unsupported_numbers():
     facts = '{"balance": "-0.01", "amount": "4369.76", "count": 3}'
     text = "The overdraft left a balance of -0.01 after moving 4369.76. It also lost $999.00 somewhere."

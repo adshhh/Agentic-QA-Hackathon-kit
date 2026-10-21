@@ -91,7 +91,19 @@ DESIGN_DOCS = """TEST DESIGN (choose deliberately and name the technique):
   - subjective_question must ask ONLY what the PRD wording requires (e.g. "Does this message tell
     the user the transfer did not complete and why?"), never extra criteria the PRD doesn't state.
   - Keep the objective consequences (balances, records) in separate checks from message checks, so
-    a weak message check never hides a real side effect."""
+    a weak message check never hides a real side effect.
+  - PROPERTY COVERAGE: every property word in the PRD quote ("masked", "two decimal places",
+    "inclusive", "only", "every", "exactly one", "never") needs a check that would FAIL if the
+    property were absent. E.g. "masked email" -> the visible email must hide most of the local part
+    (contain a mask character such as * or • and not equal a plausible full address); "two decimal
+    places" -> the amount text matches \\.\\d{2} AND the value equals the API value exactly.
+  - DISCRIMINATING DATA: a filter/selection check is only meaningful if the unfiltered data contains
+    rows that should be EXCLUDED. Test each filter dimension on its own with a value that excludes
+    some rows, assert such rows existed before filtering, and assert they are gone after. Avoid
+    combinations where one filter makes another irrelevant (e.g. a type whose rows all share one status).
+  - ENUMERATION COVERAGE: when the PRD quote lists several items (e.g. filters, fields, input
+    classes), EVERY listed item must be exercised by at least one plan; group items into fewer plans
+    if needed, but never drop one."""
 
 FEW_SHOT = """EXAMPLE (for a different, fictional shop app; shows the format and the rigor expected)
 Requirement: "Quantity must be a whole number from 1 to 99; invalid quantities are rejected with a
@@ -209,6 +221,11 @@ ranges as exclusive, expecting exact text the PRD never specifies, relying on se
 treating internal ids/URLs as "exposed" data, checks that pass even when the feature is broken
 (e.g. len() of an API body object instead of its nested list; a key name that doesn't exist),
 missing BEFORE/AFTER observations for side effects, variables used before being saved.
+Mutation test each check in your head: "if the developer broke exactly this PRD property, would this
+check fail?" Every property word in the quote (masked, two decimals, inclusive, only, every...) must
+have such a check, and filter tests must use data that contains rows the filter should exclude.
+If the PRD quote lists several items (filters, fields, input classes), check that every one of them
+is exercised by some plan.
 If everything is right, set faithful_to_prd=true and revised=null. Otherwise list the issues and
 return the corrected full plan set in `revised`."""
 
@@ -301,6 +318,9 @@ def validate_plan(plan: TestPlan, index: MapIndex) -> list[str]:
             problems.append(f"{where}: API path {step.value!r} is not in the API description")
         if step.action == "goto" and not step.value:
             problems.append(f"{where}: goto needs a path")
+        if step.action == "goto" and step.value and step.value.startswith(("http://", "https://")):
+            problems.append(f"{where}: goto must use an app path like '/' or '/transfer', not an absolute "
+                            f"URL ({step.value!r}); the API origin is only for read_api")
         if step.action.startswith("read_") or step.action == "measure_overflow":
             if not step.save_as:
                 problems.append(f"{where}: read without save_as")

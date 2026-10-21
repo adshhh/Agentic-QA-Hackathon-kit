@@ -1,0 +1,446 @@
+[
+  {
+    "id": "ACC-01",
+    "area": "access",
+    "statement": "The landing page provides an Enter Demo action that opens the demo dashboard without requiring a password or real identity information.",
+    "prd_quote": "The landing page provides a clearly labeled **Enter Demo** action. It opens the demo dashboard without requiring a password or real identity information.",
+    "observable_outcomes": [
+      "Landing page renders an Enter Demo button or link.",
+      "Clicking Enter Demo navigates to the dashboard view without prompting for credentials or personal details.",
+      "Dashboard views and data become visible in the UI."
+    ],
+    "subjective_aspect": "clearly labeled",
+    "verifiable_in_browser": true,
+    "depth": "deep"
+  },
+  {
+    "id": "ACC-02",
+    "area": "access",
+    "statement": "The header identifies the active demo customer and provides a Log out action.",
+    "prd_quote": "The header identifies the active demo customer and provides a **Log out** action.",
+    "observable_outcomes": [
+      "Header element contains text identifying the demo customer name or identifier.",
+      "Header element displays a visible Log out button or link."
+    ],
+    "subjective_aspect": null,
+    "verifiable_in_browser": true,
+    "depth": "deep"
+  },
+  {
+    "id": "ACC-03",
+    "area": "access",
+    "statement": "Logging out returns the user to the landing page and invalidates access to protected dashboard views.",
+    "prd_quote": "Logging out returns the user to the landing page. Protected dashboard views should not remain usable after logout; direct navigation to them should return the user to the landing page or an access-required state.",
+    "observable_outcomes": [
+      "Clicking Log out redirects the browser to the landing page.",
+      "Attempting to navigate directly to dashboard or account URLs after logout redirects to the landing page or displays an access-required error state.",
+      "Dashboard data and actions are not rendered or interactive after logout."
+    ],
+    "subjective_aspect": null,
+    "verifiable_in_browser": true,
+    "depth": "deep"
+  },
+  {
+    "id": "ACC-04",
+    "area": "access",
+    "statement": "Refreshing the browser during an active demo session preserves the session.",
+    "prd_quote": "Refreshing while in a valid demo session should preserve that session.",
+    "observable_outcomes": [
+      "Refreshing the page while authenticated remains on the protected view.",
+      "User is not redirected to the landing page.",
+      "Active session state and customer identification remain intact in the UI."
+    ],
+    "subjective_aspect": null,
+    "verifiable_in_browser": true,
+    "depth": "deep"
+  },
+  {
+    "id": "ACC-05",
+    "area": "access",
+    "statement": "Refreshing a protected page after logout must not restore access.",
+    "prd_quote": "A logged-out user must not regain access merely by refreshing a protected page.",
+    "observable_outcomes": [
+      "Refreshing a protected URL or the redirected landing page after logout does not load protected dashboard data.",
+      "The user remains unauthenticated or on the access-required view."
+    ],
+    "subjective_aspect": null,
+    "verifiable_in_browser": true,
+    "depth": "deep"
+  },
+  {
+    "id": "DSH-01",
+    "area": "accounts",
+    "statement": "The dashboard displays the customer's checking and savings accounts.",
+    "prd_quote": "The dashboard shows the customer's checking and savings accounts.",
+    "observable_outcomes": [
+      "Dashboard presents both a checking account entry and a savings account entry.",
+      "Both accounts are associated with the demo customer."
+    ],
+    "subjective_aspect": null,
+    "verifiable_in_browser": true,
+    "depth": "light"
+  },
+  {
+    "id": "DSH-02",
+    "area": "accounts",
+    "statement": "Each account displays a readable name, masked identifier, account type, and available balance in USD with two decimal places without exposing the full identifier.",
+    "prd_quote": "Each account displays a readable account name, a masked account identifier, account type, and current available balance in USD. Balances are displayed to two decimal places. The UI must not expose a full account identifier.",
+    "observable_outcomes": [
+      "Account name text is visible for each account.",
+      "Account type (e.g. checking, savings) is displayed.",
+      "Account identifier is masked (e.g. ****1234) and the full identifier is not present in the DOM or UI text.",
+      "Available balance displays currency format with exactly two decimal places (e.g. $1,234.56)."
+    ],
+    "subjective_aspect": "readable account name",
+    "verifiable_in_browser": true,
+    "depth": "light"
+  },
+  {
+    "id": "DSH-03",
+    "area": "accounts",
+    "statement": "Selecting an account opens an account detail view showing its balance and related transaction history.",
+    "prd_quote": "Selecting an account opens an account detail view with its current balance and related transaction history.",
+    "observable_outcomes": [
+      "Clicking an account card or link navigates to that account's detail view.",
+      "The detail view displays the selected account's current balance.",
+      "The detail view displays a transaction history table or list filtered to that specific account."
+    ],
+    "subjective_aspect": null,
+    "verifiable_in_browser": true,
+    "depth": "light"
+  },
+  {
+    "id": "DSH-04",
+    "area": "accounts",
+    "statement": "Account balances displayed on the dashboard and detail view match the latest successful transactions.",
+    "prd_quote": "Account balances shown on the dashboard and detail view must agree with the latest successful transactions.",
+    "observable_outcomes": [
+      "Balance shown on the dashboard matches the balance shown on the detail view for each account.",
+      "Displayed balance precisely equals the mathematical sum of the seed transactions and any subsequent committed transfers."
+    ],
+    "subjective_aspect": null,
+    "verifiable_in_browser": true,
+    "depth": "light"
+  },
+  {
+    "id": "TRF-01",
+    "area": "transfers",
+    "statement": "The transfer form provides inputs for source account, destination account, amount, and an optional memo to transfer funds between owned checking and savings accounts.",
+    "prd_quote": "The user can transfer funds between the checking and savings accounts owned by the demo customer. The transfer form includes source account, destination account, amount, and an optional memo.",
+    "observable_outcomes": [
+      "Transfer view contains selectable controls for source account and destination account (checking and savings).",
+      "Transfer view contains an input field for amount.",
+      "Transfer view contains an input field for memo.",
+      "Submitting the transfer with memo omitted is permitted."
+    ],
+    "subjective_aspect": null,
+    "verifiable_in_browser": true,
+    "depth": "deep"
+  },
+  {
+    "id": "TRF-02",
+    "area": "transfers",
+    "statement": "Transfers where source and destination accounts are the same must be rejected without altering balances or creating transactions.",
+    "prd_quote": "The source and destination must be different accounts. Same-account transfers must be rejected with a clear explanation and must not alter balances or create a transaction.",
+    "observable_outcomes": [
+      "Attempting to submit a transfer with identical source and destination accounts triggers a visible error message.",
+      "No success confirmation is shown.",
+      "Neither account balance changes in the UI or API.",
+      "No new record is added to transaction history."
+    ],
+    "subjective_aspect": "clear explanation",
+    "verifiable_in_browser": true,
+    "depth": "deep"
+  },
+  {
+    "id": "TRF-03",
+    "area": "transfers",
+    "statement": "Transfer amounts that are blank, zero, negative, non-numeric, or have more than two decimal places must be rejected with validation messaging, without altering balances or creating transactions.",
+    "prd_quote": "Amount must be a positive number greater than zero, with no more than two digits after the decimal point. Blank, zero, negative, non-numeric, and over-precision values must be rejected with a clear validation message. Rejected input must not create a transaction or change balances.",
+    "observable_outcomes": [
+      "Validation error message is displayed when submitting empty amount, 0, negative values (e.g. -10), non-numeric characters (e.g. abc), or precision exceeding 2 decimal places (e.g. 10.005).",
+      "Form submission is blocked or API rejects the request with an error.",
+      "Account balances remain unchanged.",
+      "No new transaction appears in history."
+    ],
+    "subjective_aspect": "clear validation message",
+    "verifiable_in_browser": true,
+    "depth": "deep"
+  },
+  {
+    "id": "TRF-04",
+    "area": "transfers",
+    "statement": "Transfers exceeding the source account's available balance must be rejected without balance changes or recorded transactions.",
+    "prd_quote": "The amount must not exceed the source account's available balance. If funds are insufficient, the transfer must be rejected, both balances must remain unchanged, and no completed transfer must appear in history.",
+    "observable_outcomes": [
+      "Submitting an amount greater than the source account balance displays an insufficient funds rejection message.",
+      "Source account balance does not decrease.",
+      "Destination account balance does not increase.",
+      "No completed transfer record appears in transaction history."
+    ],
+    "subjective_aspect": null,
+    "verifiable_in_browser": true,
+    "depth": "deep"
+  },
+  {
+    "id": "TRF-05",
+    "area": "transfers",
+    "statement": "A valid transfer atomically decreases the source account balance and increases the destination account balance by the exact amount transferred.",
+    "prd_quote": "A valid transfer is atomic: the source balance decreases by the amount and the destination balance increases by the same amount. No partial transfer is allowed.",
+    "observable_outcomes": [
+      "Upon successful transfer of amount X, source account balance is exactly old_source_balance minus X.",
+      "Destination account balance is exactly old_destination_balance plus X.",
+      "Balances update simultaneously without partial deductions or additions."
+    ],
+    "subjective_aspect": null,
+    "verifiable_in_browser": true,
+    "depth": "deep"
+  },
+  {
+    "id": "TRF-06",
+    "area": "transfers",
+    "statement": "A successful transfer creates a completed transfer record visible in both source and destination account histories with full details.",
+    "prd_quote": "A successful transfer creates one completed transfer record that can be found in both relevant account histories. The record shows the amount, date and time, source, destination, status, and memo if supplied.",
+    "observable_outcomes": [
+      "A transaction record appears in the history of the source account.",
+      "A transaction record appears in the history of the destination account.",
+      "The record displays the transfer amount, date/time, source account, destination account, and status (e.g. completed).",
+      "If a memo was submitted, the memo text is visible in the record."
+    ],
+    "subjective_aspect": null,
+    "verifiable_in_browser": true,
+    "depth": "deep"
+  },
+  {
+    "id": "TRF-07",
+    "area": "transfers",
+    "statement": "The UI reports success only after a transfer is committed, and shows failure explanation without success state if rejected or failed.",
+    "prd_quote": "The UI reports success only after the transfer has been committed. If a transfer is rejected or fails, the UI must explain that it did not complete and must not show a success state.",
+    "observable_outcomes": [
+      "Success notification or confirmation view appears only after the server/backend confirms completion.",
+      "On error or rejection, an explanation message appears stating that the transfer did not complete.",
+      "No success toast, alert, or view is shown when a transfer fails."
+    ],
+    "subjective_aspect": "UI must explain that it did not complete",
+    "verifiable_in_browser": true,
+    "depth": "deep"
+  },
+  {
+    "id": "TRF-08",
+    "area": "transfers",
+    "statement": "Refreshing the browser after a successful transfer preserves updated account balances and the new transaction record.",
+    "prd_quote": "Refreshing after a successful transfer must preserve the updated balances and transaction record.",
+    "observable_outcomes": [
+      "After a successful transfer, browser page reload retains the decreased source balance and increased destination balance.",
+      "The created transfer record is still visible in history after page reload."
+    ],
+    "subjective_aspect": null,
+    "verifiable_in_browser": true,
+    "depth": "deep"
+  },
+  {
+    "id": "TXN-01",
+    "area": "history",
+    "statement": "The user can view a combined transaction history across accounts as well as account-specific history.",
+    "prd_quote": "The user can view a combined transaction history and account-specific history.",
+    "observable_outcomes": [
+      "UI provides a view showing transactions from all accounts combined.",
+      "UI provides a view showing transactions filtered to an individual account."
+    ],
+    "subjective_aspect": null,
+    "verifiable_in_browser": true,
+    "depth": "deep"
+  },
+  {
+    "id": "TXN-02",
+    "area": "history",
+    "statement": "Each transaction history row displays date/time, description or memo, transaction type, amount, status, relevant account, and clear amount direction.",
+    "prd_quote": "Each row shows date and time, description or memo, transaction type, amount, status, and relevant account. Amount direction should be clear for deposits, withdrawals, and transfers.",
+    "observable_outcomes": [
+      "Table/list rows display timestamp (date and time).",
+      "Row displays description or memo.",
+      "Row displays transaction type (e.g. deposit, withdrawal, transfer).",
+      "Row displays transaction status.",
+      "Row displays the associated account.",
+      "Amount display clearly indicates inflow vs. outflow (e.g. via +/- sign, distinct columns, or styling)."
+    ],
+    "subjective_aspect": "Amount direction should be clear",
+    "verifiable_in_browser": true,
+    "depth": "deep"
+  },
+  {
+    "id": "TXN-03",
+    "area": "history",
+    "statement": "The user can filter transaction history by account, transaction type, status, and date range, with results satisfying all active filters.",
+    "prd_quote": "The user can filter history by account, transaction type, status, and date range. When filters are applied, every displayed row must satisfy all selected filters.",
+    "observable_outcomes": [
+      "Filter controls exist for account, transaction type, status, and date range.",
+      "Applying multiple filters concurrently returns only rows that meet every filter condition simultaneously."
+    ],
+    "subjective_aspect": null,
+    "verifiable_in_browser": true,
+    "depth": "deep"
+  },
+  {
+    "id": "TXN-04",
+    "area": "history",
+    "statement": "Date range filtering is inclusive of start and end boundary dates.",
+    "prd_quote": "The start and end dates are inclusive. A transaction occurring on either boundary date must be included when it matches the other filters.",
+    "observable_outcomes": [
+      "A transaction dated exactly on the start date is visible in the filtered results.",
+      "A transaction dated exactly on the end date is visible in the filtered results."
+    ],
+    "subjective_aspect": null,
+    "verifiable_in_browser": true,
+    "depth": "deep"
+  },
+  {
+    "id": "TXN-05",
+    "area": "history",
+    "statement": "Filtering that yields an empty result set displays a clear empty state rather than an error or unrelated transactions.",
+    "prd_quote": "An empty result set must show a clear empty state, not an error or unrelated transactions.",
+    "observable_outcomes": [
+      "Applying filters that match no transactions displays an empty state message or graphic.",
+      "No error toast or error notification is triggered.",
+      "No unmatched transaction rows are displayed."
+    ],
+    "subjective_aspect": "clear empty state",
+    "verifiable_in_browser": true,
+    "depth": "deep"
+  },
+  {
+    "id": "TXN-06",
+    "area": "history",
+    "statement": "Clearing applied filters restores the complete unfiltered transaction history.",
+    "prd_quote": "Clearing filters restores the unfiltered history.",
+    "observable_outcomes": [
+      "UI provides an action to clear or reset filters.",
+      "Invoking reset/clear returns all transactions previously displayed before filtering."
+    ],
+    "subjective_aspect": null,
+    "verifiable_in_browser": true,
+    "depth": "deep"
+  },
+  {
+    "id": "PRO-01",
+    "area": "profile",
+    "statement": "The profile view displays only synthetic demo-customer details including display name and masked email address.",
+    "prd_quote": "A profile view displays only synthetic demo-customer details, such as display name and a masked email address.",
+    "observable_outcomes": [
+      "Profile view shows the demo customer display name.",
+      "Profile view shows a masked email address (e.g. j***@example.com)."
+    ],
+    "subjective_aspect": null,
+    "verifiable_in_browser": true,
+    "depth": "light"
+  },
+  {
+    "id": "PRO-02",
+    "area": "profile",
+    "statement": "The profile view does not reveal passwords, authentication tokens, full account identifiers, or data belonging to another user.",
+    "prd_quote": "The view must not reveal passwords, authentication tokens, full account identifiers, or data belonging to another user.",
+    "observable_outcomes": [
+      "Passwords and auth tokens are absent from the profile UI, DOM elements, and API payloads.",
+      "No full unmasked account identifiers are rendered in the profile view.",
+      "All data shown corresponds strictly to the single demo customer."
+    ],
+    "subjective_aspect": null,
+    "verifiable_in_browser": true,
+    "depth": "light"
+  },
+  {
+    "id": "GEN-01",
+    "area": "general",
+    "statement": "The application functions at a 1280x800 desktop viewport and remains usable at narrower viewport widths.",
+    "prd_quote": "The target works in a current desktop browser at a 1280 \u00d7 800 viewport and remains usable at narrower widths.",
+    "observable_outcomes": [
+      "All core views, forms, and tables render properly at 1280x800 resolution without broken layout.",
+      "Controls, text, and actions remain accessible and functional when browser viewport width is reduced below 1280px."
+    ],
+    "subjective_aspect": "remains usable at narrower widths",
+    "verifiable_in_browser": true,
+    "depth": "light"
+  },
+  {
+    "id": "GEN-02",
+    "area": "general",
+    "statement": "Interactive controls have readable labels and communicate loading, success, validation, and failure states.",
+    "prd_quote": "Interactive controls have readable labels and communicate loading, success, validation, and failure states.",
+    "observable_outcomes": [
+      "Buttons and form controls have legible, descriptive text labels.",
+      "Submitting forms displays loading indicators or spinners during processing.",
+      "Completed actions display explicit success messages.",
+      "Invalid entries or failed operations present visible validation or error messages."
+    ],
+    "subjective_aspect": "readable labels",
+    "verifiable_in_browser": true,
+    "depth": "light"
+  },
+  {
+    "id": "GEN-03",
+    "area": "general",
+    "statement": "Submitted actions do not silently disappear, and display a loading state or prevent accidental duplicate submissions while waiting.",
+    "prd_quote": "A submitted action should not silently disappear. While waiting, the UI should show a loading state or otherwise prevent accidental duplicate submission.",
+    "observable_outcomes": [
+      "Upon action submission (e.g. transfer), the UI reflects the pending request immediately.",
+      "Submit buttons are disabled or accompanied by an overlay/spinner preventing rapid repeated clicks.",
+      "The UI does not silently reset without user feedback."
+    ],
+    "subjective_aspect": "should not silently disappear",
+    "verifiable_in_browser": true,
+    "depth": "light"
+  },
+  {
+    "id": "GEN-04",
+    "area": "general",
+    "statement": "Navigation links and buttons lead to their labeled destination or execute their labeled action.",
+    "prd_quote": "Navigation links and buttons lead to the labeled destination or perform the labeled action.",
+    "observable_outcomes": [
+      "Clicking each navigation link loads the corresponding labeled view.",
+      "Clicking action buttons triggers the exact labeled operation."
+    ],
+    "subjective_aspect": null,
+    "verifiable_in_browser": true,
+    "depth": "light"
+  },
+  {
+    "id": "GEN-05",
+    "area": "general",
+    "statement": "When a recoverable error occurs, the user can retry the operation or return to the dashboard.",
+    "prd_quote": "A recoverable error must leave the user able to retry or return to the dashboard.",
+    "observable_outcomes": [
+      "Error views/banners include an option, button, or link to retry the operation.",
+      "A clear navigation link or button back to the dashboard is visible and functioning during/after an error."
+    ],
+    "subjective_aspect": null,
+    "verifiable_in_browser": true,
+    "depth": "light"
+  },
+  {
+    "id": "SEED-01",
+    "area": "seed",
+    "statement": "The demo environment begins seeded with one customer, one checking account, and one savings account.",
+    "prd_quote": "- The target has one seeded demo customer.",
+    "observable_outcomes": [
+      "Application initializes with exactly one demo user session available.",
+      "Dashboard shows exactly one checking account and one savings account for that customer."
+    ],
+    "subjective_aspect": null,
+    "verifiable_in_browser": true,
+    "depth": "light"
+  },
+  {
+    "id": "SEED-02",
+    "area": "seed",
+    "statement": "Seed transaction data includes multiple dates, at least one transfer between accounts, and sufficient variety to exercise account, type, status, and date filters.",
+    "prd_quote": "The demo begins with one customer, one checking account, one savings account, and enough historical transactions to exercise account, type, status, and date filters. Seed records should include multiple dates and at least one transfer between the two accounts.",
+    "observable_outcomes": [
+      "Initial transaction history contains rows spanning at least two different dates.",
+      "Initial transaction history includes at least one transfer record between checking and savings.",
+      "Initial records provide different transaction types, statuses, and accounts such that each filter option produces matching results."
+    ],
+    "subjective_aspect": "enough historical transactions to exercise account, type, status, and date filters",
+    "verifiable_in_browser": true,
+    "depth": "light"
+  }
+]

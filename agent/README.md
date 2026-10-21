@@ -105,10 +105,48 @@ Configuration (environment variables, see `.env.example`): `TARGET_URL`, `API_UR
 
 ## Results
 
-See the latest full run's report in `runs/` (one sample run is committed). Summary of that run is
-filled in at the bottom of this file under **Latest full run**.
+**Official sample run:** [sample_run/20261021-092147/report.md](sample_run/20261021-092147/report.md)
+(local copy of DemoBank, database reset between scenarios, headless).
+
+| | |
+|---|---|
+| Requirements extracted from the PRD | 32 (coverage of a hand-made PRD inventory: 36/36) |
+| Verdicts | **27 PASS · 3 FAIL · 2 UNVERIFIED** |
+| Scenario runs executed | normal, negative and boundary scenarios per deep requirement; 10 code-generated invalid amounts per amount-validation plan |
+| Runtime | 57 min |
+| Model cost | **$2.02** for the whole run (138 model calls; gemini-3.8-flash + gemini-3.5-flash-lite, prices as of 2026-10-21) |
+
+**Defects found (each reproduced on a fresh re-run and confirmed 3-0 by the PRD review):**
+
+| ID | Defect | Evidence |
+|---|---|---|
+| TRF-03 | Zero and negative amounts are accepted | `0` creates a completed $0.00 transfer; in the first full run, `-5` moved money *backwards* (checking $4,369.75 → $4,374.75) |
+| TRF-04 | Overdrafts are accepted | Transferring $4,369.76 from a $4,369.75 balance succeeds with no error; checking shows −$0.01 in the UI and API |
+| TXN-04 | Date filter end date is not inclusive | A transaction on the selected end date is missing from the filtered results |
+
+An earlier full run (before the D26 fixes) also flagged **pending and failed rows showing "$0.00, No
+change"** instead of their amount (TXN-02). In the official run, the planner wrote different
+scenarios and TXN-02 passed. That's a known effect of model nondeterminism (see Known limitations).
+
+**UNVERIFIED, with reasons:**
+- **TRF-07** ("if a transfer is rejected, the UI must explain…"): the scenarios it tried were *not
+  rejected* (the overdraft and zero-amount bugs). The 3-vote review correctly refused to count those
+  bugs again under this conditional requirement, a false positive that was avoided.
+- **ACC-01**: harness issue. The plan navigated to the API origin instead of the app. Fixed (D27);
+  re-tested in [sample_run/20261021-102012-ACC-01-retest](sample_run/20261021-102012-ACC-01-retest/report.md):
+  **PASS** (2 scenarios, $0.05).
+
+**Model validation eval:** 3/3 verdicts match hand-checked ground truth ([eval/EVAL_RESULTS.md](eval/EVAL_RESULTS.md)).
+**Fault injection:** 5 bugs planted in a temporary copy of the backend. After one round of fixes
+(D28), the agent catches **3 of the 4 that are observable** (same-account transfer allowed, destination
+credited 1¢ short, email unmasked) with no new false positives on the healthy app. It still misses
+an ignored status filter. Details and honest reading: [eval/FAULT_INJECTION.md](eval/FAULT_INJECTION.md).
 
 ## Cost
+
+**Measured:** $2.02 for a full 32-requirement run, i.e. about $0.06 per requirement. Planning and
+self-critique account for most of it (see the cost table in the sample report). Single-requirement
+re-runs cost $0.05–0.15. The model choice keeps a full audit well under a dollar per ten requirements.
 
 Every model request is logged with its tokens and priced from a dated table (`qa_agent/config.py`;
 Gemini standard paid tier as of 2026-10-21; thinking tokens are billed as output; failed and
@@ -129,6 +167,12 @@ so it includes the cost of writing the report itself.
   overflow at narrow widths).
 - **Light coverage** for dashboard, profile, general UI and seed-data requirements (one normal-path
   scenario each), by design (DECISIONS.md D17).
+- **Filter isolation.** When a PRD sentence lists several filters, the planner may test one of them
+  only in combination with others, which can hide a broken filter (the ignored-status-filter fault
+  was missed this way; see eval/FAULT_INJECTION.md).
+- **The official sample run predates the last prompt fixes (D27, D28).** Those fixes were validated by
+  targeted re-runs (ACC-01 re-test, fault-injection round 2, healthy-app checks) rather than a second
+  full run.
 - **Single customer.** "Data belonging to another user" can only be checked indirectly (no second user
   exists in the target).
 - **Exploration is non-destructive**, so states that require submitting forms (e.g. error messages)
@@ -153,7 +197,8 @@ agent/
     orchestrator.py   the per-requirement loop and verdict aggregation
     report.py         Markdown report: model narrative + code-inserted facts
     browser.py        Playwright helpers: compact snapshots, network log, settle
-  scripts/            reset_db.sh, fault_injection.py
+  scripts/            reset_db.sh, fault_injection.py, demo.sh (headed demo), publish_run.py
+  sample_run/         the official full run (report, results, raw logs, linked screenshots)
   eval/               PRD inventory, eval results, fault-injection results
   docs/               ARCHITECTURE.md, DECISIONS.md
   tests/unit/         unit tests (cost accounting, quote validation, sandbox, dates)

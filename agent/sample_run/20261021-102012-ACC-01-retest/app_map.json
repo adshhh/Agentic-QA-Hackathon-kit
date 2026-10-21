@@ -1,0 +1,1678 @@
+{
+  "target_url": "http://localhost:5173",
+  "entry": {
+    "action": "click",
+    "by": "role",
+    "locator": "button",
+    "name": "Enter Demo",
+    "lands_on": "/dashboard",
+    "network": [
+      {
+        "method": "POST",
+        "origin": "http://localhost:8000",
+        "path": "/api/demo/session",
+        "pattern": "/api/demo/session",
+        "query": "",
+        "status": 201
+      },
+      {
+        "method": "GET",
+        "origin": "http://localhost:8000",
+        "path": "/api/me",
+        "pattern": "/api/me",
+        "query": "",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "origin": "http://localhost:8000",
+        "path": "/health",
+        "pattern": "/health",
+        "query": "",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "origin": "http://localhost:8000",
+        "path": "/api/accounts",
+        "pattern": "/api/accounts",
+        "query": "",
+        "status": 200
+      }
+    ]
+  },
+  "pages": {
+    "/": {
+      "route": "/",
+      "example_url": "/",
+      "title": "DemoBank",
+      "elements": [
+        {
+          "tag": "h1",
+          "role": "heading",
+          "name": "Your accounts, in one simple dashboard."
+        },
+        {
+          "tag": "button",
+          "role": "button",
+          "name": "Enter Demo"
+        }
+      ],
+      "network_on_load": [
+        {
+          "method": "GET",
+          "origin": "http://localhost:8000",
+          "path": "/health",
+          "pattern": "/health",
+          "query": "",
+          "status": 200
+        }
+      ],
+      "settled": true,
+      "source": "live"
+    },
+    "/dashboard": {
+      "route": "/dashboard",
+      "example_url": "/dashboard",
+      "title": "DemoBank",
+      "elements": [
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Skip to main content",
+          "href": "#main"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "DemoBank dashboard",
+          "href": "/dashboard"
+        },
+        {
+          "tag": "nav",
+          "role": null,
+          "name": "Main"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Dashboard",
+          "href": "/dashboard"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Transactions",
+          "href": "/transactions"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Transfer",
+          "href": "/transfer"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Profile",
+          "href": "/profile"
+        },
+        {
+          "tag": "span",
+          "role": null,
+          "name": "Signed in as Avery Demo",
+          "testid": "active-customer",
+          "count": 1,
+          "text": "Signed in as Avery Demo"
+        },
+        {
+          "tag": "button",
+          "role": "button",
+          "name": "Log out"
+        },
+        {
+          "tag": "h1",
+          "role": "heading",
+          "name": "Welcome, Avery Demo"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Transfer funds",
+          "href": "/transfer"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "View all transactions",
+          "href": "/transactions"
+        },
+        {
+          "tag": "h2",
+          "role": "heading",
+          "name": "Your accounts",
+          "id": "accounts-heading"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Everyday Checking Checking Account number ending \u2022\u2022\u2022\u2022 1042 Available balance $4,344.75USD View details \u2192",
+          "testid": "account-card",
+          "count": 2,
+          "href": "/accounts/00000000-0000-0000-0000-000000000101"
+        },
+        {
+          "tag": "h3",
+          "role": "heading",
+          "name": "Everyday Checking"
+        },
+        {
+          "tag": "p",
+          "role": null,
+          "name": "$4,344.75USD",
+          "testid": "account-balance",
+          "count": 2,
+          "text": "$4,344.75USD"
+        },
+        {
+          "tag": "h3",
+          "role": "heading",
+          "name": "Rainy Day Savings"
+        }
+      ],
+      "network_on_load": [],
+      "settled": true,
+      "source": "live"
+    },
+    "/transactions": {
+      "route": "/transactions",
+      "example_url": "/transactions",
+      "title": "DemoBank",
+      "elements": [
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Skip to main content",
+          "href": "#main"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "DemoBank dashboard",
+          "href": "/dashboard"
+        },
+        {
+          "tag": "nav",
+          "role": null,
+          "name": "Main"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Dashboard",
+          "href": "/dashboard"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Transactions",
+          "href": "/transactions"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Transfer",
+          "href": "/transfer"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Profile",
+          "href": "/profile"
+        },
+        {
+          "tag": "span",
+          "role": null,
+          "name": "Signed in as Avery Demo",
+          "testid": "active-customer",
+          "count": 1,
+          "text": "Signed in as Avery Demo"
+        },
+        {
+          "tag": "button",
+          "role": "button",
+          "name": "Log out"
+        },
+        {
+          "tag": "h1",
+          "role": "heading",
+          "name": "Transactions"
+        },
+        {
+          "tag": "form",
+          "role": null,
+          "name": "Filter transactions"
+        },
+        {
+          "tag": "select",
+          "role": "combobox",
+          "name": "Account",
+          "id": "filter-account",
+          "options": [
+            {
+              "value": "",
+              "label": "All accounts"
+            },
+            {
+              "value": "00000000-0000-0000-0000-000000000101",
+              "label": "Everyday Checking (\u2022\u2022\u2022\u2022 1042)"
+            },
+            {
+              "value": "00000000-0000-0000-0000-000000000102",
+              "label": "Rainy Day Savings (\u2022\u2022\u2022\u2022 7781)"
+            }
+          ],
+          "selected": "",
+          "in_form": "Filter transactions"
+        },
+        {
+          "tag": "select",
+          "role": "combobox",
+          "name": "Type",
+          "id": "filter-type",
+          "options": [
+            {
+              "value": "",
+              "label": "All types"
+            },
+            {
+              "value": "deposit",
+              "label": "Deposit"
+            },
+            {
+              "value": "withdrawal",
+              "label": "Withdrawal"
+            },
+            {
+              "value": "transfer",
+              "label": "Transfer"
+            }
+          ],
+          "selected": "",
+          "in_form": "Filter transactions"
+        },
+        {
+          "tag": "select",
+          "role": "combobox",
+          "name": "Status",
+          "id": "filter-status",
+          "options": [
+            {
+              "value": "",
+              "label": "All statuses"
+            },
+            {
+              "value": "completed",
+              "label": "Completed"
+            },
+            {
+              "value": "pending",
+              "label": "Pending"
+            },
+            {
+              "value": "failed",
+              "label": "Failed"
+            }
+          ],
+          "selected": "",
+          "in_form": "Filter transactions"
+        },
+        {
+          "tag": "input",
+          "role": "textbox",
+          "name": "Start date",
+          "id": "filter-start",
+          "type": "date",
+          "value": "",
+          "in_form": "Filter transactions"
+        },
+        {
+          "tag": "input",
+          "role": "textbox",
+          "name": "End date",
+          "id": "filter-end",
+          "type": "date",
+          "value": "",
+          "in_form": "Filter transactions"
+        },
+        {
+          "tag": "button",
+          "role": "button",
+          "name": "Apply filters",
+          "in_form": "Filter transactions"
+        },
+        {
+          "tag": "button",
+          "role": "button",
+          "name": "Clear filters",
+          "in_form": "Filter transactions"
+        },
+        {
+          "tag": "h2",
+          "role": "heading",
+          "name": "All transactions",
+          "id": "results-heading"
+        },
+        {
+          "tag": "p",
+          "role": "status",
+          "name": "Showing 13 transactions",
+          "testid": "result-count",
+          "count": 1,
+          "text": "Showing 13 transactions"
+        },
+        {
+          "tag": "table",
+          "role": "table",
+          "name": "All transactions DATE & TIME DESCRIPTION TYPE ACCOUNT AMOUNT STATUS Oct 21, 2026, 6:47 AM PDT Test submission feedback T",
+          "testid": "transaction-table",
+          "count": 1,
+          "text": "All transactions DATE & TIME DESCRIPTION TYPE ACCOUNT AMOUNT STATUS Oct 21, 2026, 6:47 AM PDT Test submission feedback T"
+        },
+        {
+          "tag": "tr",
+          "role": null,
+          "name": "Oct 21, 2026, 6:47 AM PDT Test submission feedback Transfer From Everyday Checking (\u2022\u2022\u2022\u2022 1042) To Rainy Day Savings (\u2022\u2022\u2022",
+          "testid": "transaction-row",
+          "count": 13,
+          "text": "Oct 21, 2026, 6:47 AM PDT Test submission feedback Transfer From Everyday Checking (\u2022\u2022\u2022\u2022 1042) To Rainy Day Savings (\u2022\u2022\u2022"
+        }
+      ],
+      "network_on_load": [
+        {
+          "method": "GET",
+          "origin": "http://localhost:8000",
+          "path": "/api/me",
+          "pattern": "/api/me",
+          "query": "",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "origin": "http://localhost:8000",
+          "path": "/health",
+          "pattern": "/health",
+          "query": "",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "origin": "http://localhost:8000",
+          "path": "/api/accounts",
+          "pattern": "/api/accounts",
+          "query": "",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "origin": "http://localhost:8000",
+          "path": "/api/transactions",
+          "pattern": "/api/transactions",
+          "query": "",
+          "status": 200
+        }
+      ],
+      "settled": true,
+      "source": "live"
+    },
+    "/transfer": {
+      "route": "/transfer",
+      "example_url": "/transfer",
+      "title": "DemoBank",
+      "elements": [
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Skip to main content",
+          "href": "#main"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "DemoBank dashboard",
+          "href": "/dashboard"
+        },
+        {
+          "tag": "nav",
+          "role": null,
+          "name": "Main"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Dashboard",
+          "href": "/dashboard"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Transactions",
+          "href": "/transactions"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Transfer",
+          "href": "/transfer"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Profile",
+          "href": "/profile"
+        },
+        {
+          "tag": "span",
+          "role": null,
+          "name": "Signed in as Avery Demo",
+          "testid": "active-customer",
+          "count": 1,
+          "text": "Signed in as Avery Demo"
+        },
+        {
+          "tag": "button",
+          "role": "button",
+          "name": "Log out"
+        },
+        {
+          "tag": "h1",
+          "role": "heading",
+          "name": "Transfer between your accounts"
+        },
+        {
+          "tag": "form",
+          "role": null,
+          "name": "From account Select an account Everyday "
+        },
+        {
+          "tag": "select",
+          "role": "combobox",
+          "name": "From account",
+          "id": "source",
+          "options": [
+            {
+              "value": "",
+              "label": "Select an account"
+            },
+            {
+              "value": "00000000-0000-0000-0000-000000000101",
+              "label": "Everyday Checking (\u2022\u2022\u2022\u2022 1042) \u2014 $4,344.75"
+            },
+            {
+              "value": "00000000-0000-0000-0000-000000000102",
+              "label": "Rainy Day Savings (\u2022\u2022\u2022\u2022 7781) \u2014 $8,300.00"
+            }
+          ],
+          "selected": "00000000-0000-0000-0000-000000000101",
+          "in_form": true
+        },
+        {
+          "tag": "select",
+          "role": "combobox",
+          "name": "To account",
+          "id": "destination",
+          "options": [
+            {
+              "value": "",
+              "label": "Select an account"
+            },
+            {
+              "value": "00000000-0000-0000-0000-000000000101",
+              "label": "Everyday Checking (\u2022\u2022\u2022\u2022 1042) \u2014 $4,344.75"
+            },
+            {
+              "value": "00000000-0000-0000-0000-000000000102",
+              "label": "Rainy Day Savings (\u2022\u2022\u2022\u2022 7781) \u2014 $8,300.00"
+            }
+          ],
+          "selected": "00000000-0000-0000-0000-000000000102",
+          "in_form": true
+        },
+        {
+          "tag": "input",
+          "role": "textbox",
+          "name": "Amount (USD)",
+          "id": "amount",
+          "type": "text",
+          "value": "",
+          "in_form": true
+        },
+        {
+          "tag": "input",
+          "role": "textbox",
+          "name": "Memo (optional)",
+          "id": "memo",
+          "type": "text",
+          "value": "",
+          "in_form": true
+        },
+        {
+          "tag": "button",
+          "role": "button",
+          "name": "Transfer funds",
+          "in_form": true
+        },
+        {
+          "tag": "h2",
+          "role": "heading",
+          "name": "Current balances",
+          "id": "balances-heading"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Everyday Checking (\u2022\u2022\u2022\u2022 1042)",
+          "href": "/accounts/00000000-0000-0000-0000-000000000101"
+        },
+        {
+          "tag": "span",
+          "role": null,
+          "name": "$4,344.75",
+          "testid": "transfer-balance",
+          "count": 2,
+          "text": "$4,344.75"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Rainy Day Savings (\u2022\u2022\u2022\u2022 7781)",
+          "href": "/accounts/00000000-0000-0000-0000-000000000102"
+        }
+      ],
+      "network_on_load": [
+        {
+          "method": "GET",
+          "origin": "http://localhost:8000",
+          "path": "/api/me",
+          "pattern": "/api/me",
+          "query": "",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "origin": "http://localhost:8000",
+          "path": "/health",
+          "pattern": "/health",
+          "query": "",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "origin": "http://localhost:8000",
+          "path": "/api/accounts",
+          "pattern": "/api/accounts",
+          "query": "",
+          "status": 200
+        }
+      ],
+      "settled": true,
+      "source": "live"
+    },
+    "/profile": {
+      "route": "/profile",
+      "example_url": "/profile",
+      "title": "DemoBank",
+      "elements": [
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Skip to main content",
+          "href": "#main"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "DemoBank dashboard",
+          "href": "/dashboard"
+        },
+        {
+          "tag": "nav",
+          "role": null,
+          "name": "Main"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Dashboard",
+          "href": "/dashboard"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Transactions",
+          "href": "/transactions"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Transfer",
+          "href": "/transfer"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Profile",
+          "href": "/profile"
+        },
+        {
+          "tag": "span",
+          "role": null,
+          "name": "Signed in as Avery Demo",
+          "testid": "active-customer",
+          "count": 1,
+          "text": "Signed in as Avery Demo"
+        },
+        {
+          "tag": "button",
+          "role": "button",
+          "name": "Log out"
+        },
+        {
+          "tag": "h1",
+          "role": "heading",
+          "name": "Your profile"
+        },
+        {
+          "tag": "h2",
+          "role": "heading",
+          "name": "Demo customer details",
+          "id": "profile-heading"
+        },
+        {
+          "tag": "dd",
+          "role": null,
+          "name": "Avery Demo",
+          "testid": "profile-name",
+          "count": 1,
+          "text": "Avery Demo"
+        },
+        {
+          "tag": "dd",
+          "role": null,
+          "name": "a***@example.test",
+          "testid": "profile-email",
+          "count": 1,
+          "text": "a***@example.test"
+        }
+      ],
+      "network_on_load": [
+        {
+          "method": "GET",
+          "origin": "http://localhost:8000",
+          "path": "/api/me",
+          "pattern": "/api/me",
+          "query": "",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "origin": "http://localhost:8000",
+          "path": "/health",
+          "pattern": "/health",
+          "query": "",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "origin": "http://localhost:8000",
+          "path": "/api/me",
+          "pattern": "/api/me",
+          "query": "",
+          "status": 200
+        }
+      ],
+      "settled": true,
+      "source": "live"
+    },
+    "/accounts/{id}": {
+      "route": "/accounts/{id}",
+      "example_url": "/accounts/00000000-0000-0000-0000-000000000101",
+      "title": "DemoBank",
+      "elements": [
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Skip to main content",
+          "href": "#main"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "DemoBank dashboard",
+          "href": "/dashboard"
+        },
+        {
+          "tag": "nav",
+          "role": null,
+          "name": "Main"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Dashboard",
+          "href": "/dashboard"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Transactions",
+          "href": "/transactions"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Transfer",
+          "href": "/transfer"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Profile",
+          "href": "/profile"
+        },
+        {
+          "tag": "span",
+          "role": null,
+          "name": "Signed in as Avery Demo",
+          "testid": "active-customer",
+          "count": 1,
+          "text": "Signed in as Avery Demo"
+        },
+        {
+          "tag": "button",
+          "role": "button",
+          "name": "Log out"
+        },
+        {
+          "tag": "nav",
+          "role": null,
+          "name": "Breadcrumb"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Dashboard",
+          "href": "/dashboard"
+        },
+        {
+          "tag": "span",
+          "role": null,
+          "name": "\u2022\u2022\u2022\u2022 1042",
+          "testid": "account-number",
+          "count": 1,
+          "text": "\u2022\u2022\u2022\u2022 1042"
+        },
+        {
+          "tag": "h1",
+          "role": "heading",
+          "name": "Everyday Checking"
+        },
+        {
+          "tag": "p",
+          "role": null,
+          "name": "$4,344.75 USD",
+          "testid": "account-balance",
+          "count": 1,
+          "text": "$4,344.75 USD"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Transfer from this account",
+          "href": "/transfer?from=00000000-0000-0000-0000-000000000101"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Filter full history",
+          "href": "/transactions?account_id=00000000-0000-0000-0000-000000000101"
+        },
+        {
+          "tag": "h2",
+          "role": "heading",
+          "name": "Transaction history",
+          "id": "history-heading"
+        },
+        {
+          "tag": "table",
+          "role": "table",
+          "name": "Transaction history for Everyday Checking DATE & TIME DESCRIPTION TYPE ACCOUNT AMOUNT STATUS Oct 21, 2026, 6:47 AM PDT T",
+          "testid": "transaction-table",
+          "count": 1,
+          "text": "Transaction history for Everyday Checking DATE & TIME DESCRIPTION TYPE ACCOUNT AMOUNT STATUS Oct 21, 2026, 6:47 AM PDT T"
+        },
+        {
+          "tag": "tr",
+          "role": null,
+          "name": "Oct 21, 2026, 6:47 AM PDT Test submission feedback Transfer From Everyday Checking (\u2022\u2022\u2022\u2022 1042) To Rainy Day Savings (\u2022\u2022\u2022",
+          "testid": "transaction-row",
+          "count": 9,
+          "text": "Oct 21, 2026, 6:47 AM PDT Test submission feedback Transfer From Everyday Checking (\u2022\u2022\u2022\u2022 1042) To Rainy Day Savings (\u2022\u2022\u2022"
+        }
+      ],
+      "network_on_load": [
+        {
+          "method": "GET",
+          "origin": "http://localhost:8000",
+          "path": "/api/me",
+          "pattern": "/api/me",
+          "query": "",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "origin": "http://localhost:8000",
+          "path": "/health",
+          "pattern": "/health",
+          "query": "",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "origin": "http://localhost:8000",
+          "path": "/api/accounts/00000000-0000-0000-0000-000000000101",
+          "pattern": "/api/accounts/{id}",
+          "query": "",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "origin": "http://localhost:8000",
+          "path": "/api/transactions",
+          "pattern": "/api/transactions",
+          "query": "account_id=00000000-0000-0000-0000-000000000101",
+          "status": 200
+        }
+      ],
+      "settled": true,
+      "source": "live"
+    },
+    "/__qa_probe_unknown_route__": {
+      "route": "/__qa_probe_unknown_route__",
+      "example_url": "/__qa_probe_unknown_route__",
+      "title": "DemoBank",
+      "elements": [
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Skip to main content",
+          "href": "#main"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "DemoBank dashboard",
+          "href": "/dashboard"
+        },
+        {
+          "tag": "nav",
+          "role": null,
+          "name": "Main"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Dashboard",
+          "href": "/dashboard"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Transactions",
+          "href": "/transactions"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Transfer",
+          "href": "/transfer"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Profile",
+          "href": "/profile"
+        },
+        {
+          "tag": "span",
+          "role": null,
+          "name": "Signed in as Avery Demo",
+          "testid": "active-customer",
+          "count": 1,
+          "text": "Signed in as Avery Demo"
+        },
+        {
+          "tag": "button",
+          "role": "button",
+          "name": "Log out"
+        },
+        {
+          "tag": "h1",
+          "role": "heading",
+          "name": "Page not found"
+        },
+        {
+          "tag": "a",
+          "role": "link",
+          "name": "Back to dashboard",
+          "href": "/dashboard"
+        }
+      ],
+      "network_on_load": [
+        {
+          "method": "GET",
+          "origin": "http://localhost:8000",
+          "path": "/api/me",
+          "pattern": "/api/me",
+          "query": "",
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "origin": "http://localhost:8000",
+          "path": "/health",
+          "pattern": "/health",
+          "query": "",
+          "status": 200
+        }
+      ],
+      "settled": true,
+      "source": "live",
+      "note": "probe of an unknown route"
+    }
+  },
+  "api": {
+    "api_origin": "http://localhost:8000",
+    "observed_calls": [
+      {
+        "method": "GET",
+        "pattern": "/api/accounts"
+      },
+      {
+        "method": "GET",
+        "pattern": "/api/accounts/{id}"
+      },
+      {
+        "method": "GET",
+        "pattern": "/api/me"
+      },
+      {
+        "method": "GET",
+        "pattern": "/api/transactions"
+      },
+      {
+        "method": "GET",
+        "pattern": "/health"
+      },
+      {
+        "method": "POST",
+        "pattern": "/api/demo/session"
+      }
+    ],
+    "openapi_found": true,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/health",
+        "summary": "Health",
+        "params": [],
+        "responses": [
+          "200",
+          "500"
+        ],
+        "response_shape": {
+          "status": "string"
+        },
+        "request_shape": null
+      },
+      {
+        "method": "POST",
+        "path": "/api/demo/session",
+        "summary": "Create Demo Session",
+        "params": [],
+        "responses": [
+          "201",
+          "500"
+        ],
+        "response_shape": {
+          "customer": {
+            "id": "string",
+            "display_name": "string",
+            "masked_email": "string"
+          }
+        },
+        "request_shape": null
+      },
+      {
+        "method": "DELETE",
+        "path": "/api/demo/session",
+        "summary": "Delete Demo Session",
+        "params": [],
+        "responses": [
+          "204",
+          "500"
+        ],
+        "response_shape": null,
+        "request_shape": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/me",
+        "summary": "Me",
+        "params": [],
+        "responses": [
+          "200",
+          "401",
+          "500"
+        ],
+        "response_shape": {
+          "id": "string",
+          "display_name": "string",
+          "masked_email": "string"
+        },
+        "request_shape": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/accounts",
+        "summary": "Accounts",
+        "params": [],
+        "responses": [
+          "200",
+          "401",
+          "500"
+        ],
+        "response_shape": {
+          "accounts": [
+            {
+              "id": "string",
+              "name": "string",
+              "type": "checking|savings",
+              "masked_number": "string",
+              "currency": "string",
+              "balance": "string"
+            }
+          ]
+        },
+        "request_shape": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/accounts/{account_id}",
+        "summary": "Account",
+        "params": [
+          "account_id"
+        ],
+        "responses": [
+          "200",
+          "401",
+          "404",
+          "422",
+          "500"
+        ],
+        "response_shape": {
+          "account": {
+            "id": "string",
+            "name": "string",
+            "type": "checking|savings",
+            "masked_number": "string",
+            "currency": "string",
+            "balance": "string"
+          }
+        },
+        "request_shape": null
+      },
+      {
+        "method": "GET",
+        "path": "/api/transactions",
+        "summary": "Transactions",
+        "params": [
+          "account_id",
+          "type",
+          "status",
+          "start_date",
+          "end_date"
+        ],
+        "responses": [
+          "200",
+          "401",
+          "404",
+          "422",
+          "500"
+        ],
+        "response_shape": {
+          "transactions": [
+            {
+              "id": "string",
+              "type": "deposit|withdrawal|transfer",
+              "status": "completed|pending|failed",
+              "amount": "string",
+              "memo": "string|null",
+              "occurred_at": "string",
+              "source_account": "object|null",
+              "destination_account": "object|null",
+              "account_deltas": [
+                "object"
+              ]
+            }
+          ]
+        },
+        "request_shape": null
+      },
+      {
+        "method": "POST",
+        "path": "/api/transfers",
+        "summary": "Transfer",
+        "params": [],
+        "responses": [
+          "201",
+          "401",
+          "404",
+          "409",
+          "422",
+          "500"
+        ],
+        "response_shape": {
+          "transaction": {
+            "id": "string",
+            "type": "deposit|withdrawal|transfer",
+            "status": "completed|pending|failed",
+            "amount": "string",
+            "memo": "string|null",
+            "occurred_at": "string",
+            "source_account": {
+              "id": "string",
+              "name": "string",
+              "masked_number": "string"
+            },
+            "destination_account": {
+              "id": "string",
+              "name": "string",
+              "masked_number": "string"
+            },
+            "account_deltas": [
+              "object"
+            ]
+          },
+          "accounts": [
+            {
+              "id": "string",
+              "name": "string",
+              "type": "checking|savings",
+              "masked_number": "string",
+              "currency": "string",
+              "balance": "string"
+            }
+          ]
+        },
+        "request_shape": {
+          "source_account_id": "string",
+          "destination_account_id": "string",
+          "amount": "string",
+          "memo": "string|null"
+        }
+      }
+    ]
+  },
+  "repo_hints": {
+    "used": true,
+    "hints": [
+      {
+        "kind": "text",
+        "value": "Checking your demo session\u2026",
+        "file": "RequireSession.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "text",
+        "value": "We couldn't verify your session",
+        "file": "RequireSession.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "text",
+        "value": "Back to start",
+        "file": "RequireSession.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "Could not verify your session.",
+        "file": "RequireSession.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "Checking your demo session\u2026",
+        "file": "RequireSession.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "text",
+        "value": "Date & time",
+        "file": "TransactionTable.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "text",
+        "value": "Description",
+        "file": "TransactionTable.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "text",
+        "value": "Amount",
+        "file": "TransactionTable.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "Checking service\u2026",
+        "file": "ApiHealth.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "Log out failed. Please try again.",
+        "file": "AppLayout.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "Logging out\u2026",
+        "file": "AppLayout.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "Something went wrong while loading this page.",
+        "file": "useApiData.ts",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "Your demo session has ended. Enter the demo again to continue.",
+        "file": "LandingPage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "The requested item could not be found.",
+        "file": "client.ts",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "The request conflicts with the current state of your accounts.",
+        "file": "client.ts",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "Some of the submitted information is invalid.",
+        "file": "client.ts",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "DemoBank ran into a problem on its side. Please try again.",
+        "file": "client.ts",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "The request could not be completed.",
+        "file": "client.ts",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "Could not reach the DemoBank service. Check your connection and try again.",
+        "file": "client.ts",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "DemoBank returned an unexpected response.",
+        "file": "client.ts",
+        "source": "repo"
+      },
+      {
+        "kind": "text",
+        "value": "Loading account\u2026",
+        "file": "AccountDetailPage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "text",
+        "value": "No transactions yet",
+        "file": "AccountDetailPage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "Loading account\u2026",
+        "file": "AccountDetailPage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "text",
+        "value": "Loading profile\u2026",
+        "file": "ProfilePage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "text",
+        "value": "We couldn't load your profile",
+        "file": "ProfilePage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "Loading profile\u2026",
+        "file": "ProfilePage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "label",
+        "value": "Memo",
+        "file": "TransferPage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "text",
+        "value": "Loading your accounts\u2026",
+        "file": "DashboardPage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "text",
+        "value": "We couldn't load your accounts",
+        "file": "DashboardPage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "text",
+        "value": "Submitting transfer\u2026",
+        "file": "TransferPage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "text",
+        "value": "Transfer not completed",
+        "file": "TransferPage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "Choose the account to transfer from.",
+        "file": "TransferPage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "Choose the account to transfer to.",
+        "file": "TransferPage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "Enter an amount to transfer.",
+        "file": "TransferPage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "The transfer could not be submitted.",
+        "file": "TransferPage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "Loading your accounts\u2026",
+        "file": "DashboardPage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "Submitting transfer\u2026",
+        "file": "TransferPage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "text",
+        "value": "You have been logged out of the demo.",
+        "file": "LandingPage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "text",
+        "value": "Access required: enter the demo to view that page.",
+        "file": "LandingPage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "text",
+        "value": "The demo did not start.",
+        "file": "LandingPage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "You have been logged out of the demo.",
+        "file": "LandingPage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "Access required: enter the demo to view that page.",
+        "file": "LandingPage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "Could not start the demo. Please try again.",
+        "file": "LandingPage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "The demo did not start.",
+        "file": "LandingPage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "Entering demo\u2026",
+        "file": "LandingPage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "text",
+        "value": "Loading transactions\u2026",
+        "file": "TransactionsPage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "text",
+        "value": "We couldn't load transactions",
+        "file": "TransactionsPage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "message",
+        "value": "Loading transactions\u2026",
+        "file": "TransactionsPage.tsx",
+        "source": "repo"
+      },
+      {
+        "kind": "text",
+        "value": "No accounts found",
+        "file": "DashboardPage.tsx",
+        "source": "repo"
+      }
+    ]
+  },
+  "summary": {
+    "pages": [
+      {
+        "route": "/",
+        "purpose": "Landing page introducing DemoBank and offering access to start the demo session.",
+        "key_actions": [
+          "click button 'Enter Demo'"
+        ],
+        "readable_values": [
+          "heading 'Your accounts, in one simple dashboard.'"
+        ]
+      },
+      {
+        "route": "/dashboard",
+        "purpose": "Main account overview displaying customer balances, quick actions, and links to details.",
+        "key_actions": [
+          "click link 'Skip to main content'",
+          "click link 'DemoBank dashboard'",
+          "click link 'Dashboard'",
+          "click link 'Transactions'",
+          "click link 'Transfer'",
+          "click link 'Profile'",
+          "click button 'Log out'",
+          "click link 'Transfer funds'",
+          "click link 'View all transactions'",
+          "click link 'Everyday Checking Checking Account number ending \u2022\u2022\u2022\u2022 1042 Available balance $4,344.75USD View details \u2192'"
+        ],
+        "readable_values": [
+          "active customer status (testid: active-customer)",
+          "heading 'Welcome, Avery Demo'",
+          "account cards (testid: account-card)",
+          "account balances (testid: account-balance)",
+          "heading 'Everyday Checking'",
+          "heading 'Rainy Day Savings'"
+        ]
+      },
+      {
+        "route": "/transactions",
+        "purpose": "Search, filter, and inspect user transaction history across accounts.",
+        "key_actions": [
+          "click link 'Skip to main content'",
+          "click link 'DemoBank dashboard'",
+          "click link 'Dashboard'",
+          "click link 'Transactions'",
+          "click link 'Transfer'",
+          "click link 'Profile'",
+          "click button 'Log out'",
+          "select combobox 'Account'",
+          "select combobox 'Type'",
+          "select combobox 'Status'",
+          "fill textbox 'Start date'",
+          "fill textbox 'End date'",
+          "click button 'Apply filters'",
+          "click button 'Clear filters'"
+        ],
+        "readable_values": [
+          "active customer status (testid: active-customer)",
+          "result count status (testid: result-count)",
+          "transaction table (testid: transaction-table)",
+          "transaction rows (testid: transaction-row)"
+        ]
+      },
+      {
+        "route": "/transfer",
+        "purpose": "Transfer funds between available user accounts.",
+        "key_actions": [
+          "click link 'Skip to main content'",
+          "click link 'DemoBank dashboard'",
+          "click link 'Dashboard'",
+          "click link 'Transactions'",
+          "click link 'Transfer'",
+          "click link 'Profile'",
+          "click button 'Log out'",
+          "select combobox 'From account'",
+          "select combobox 'To account'",
+          "fill textbox 'Amount (USD)'",
+          "fill textbox 'Memo (optional)'",
+          "click button 'Transfer funds'",
+          "click link 'Everyday Checking (\u2022\u2022\u2022\u2022 1042)'",
+          "click link 'Rainy Day Savings (\u2022\u2022\u2022\u2022 7781)'"
+        ],
+        "readable_values": [
+          "active customer status (testid: active-customer)",
+          "balances list (testid: transfer-balance)"
+        ]
+      },
+      {
+        "route": "/profile",
+        "purpose": "View customer demographic details and contact information.",
+        "key_actions": [
+          "click link 'Skip to main content'",
+          "click link 'DemoBank dashboard'",
+          "click link 'Dashboard'",
+          "click link 'Transactions'",
+          "click link 'Transfer'",
+          "click link 'Profile'",
+          "click button 'Log out'"
+        ],
+        "readable_values": [
+          "active customer status (testid: active-customer)",
+          "profile name (testid: profile-name)",
+          "profile email (testid: profile-email)"
+        ]
+      },
+      {
+        "route": "/accounts/{id}",
+        "purpose": "View detailed information, balance, and transaction history for a specific bank account.",
+        "key_actions": [
+          "click link 'Skip to main content'",
+          "click link 'DemoBank dashboard'",
+          "click link 'Dashboard'",
+          "click link 'Transactions'",
+          "click link 'Transfer'",
+          "click link 'Profile'",
+          "click button 'Log out'",
+          "click link 'Transfer from this account'",
+          "click link 'Filter full history'"
+        ],
+        "readable_values": [
+          "active customer status (testid: active-customer)",
+          "account number (testid: account-number)",
+          "account balance (testid: account-balance)",
+          "transaction table (testid: transaction-table)",
+          "transaction rows (testid: transaction-row)"
+        ]
+      },
+      {
+        "route": "/__qa_probe_unknown_route__",
+        "purpose": "404 error page displayed when a non-existent URL is accessed.",
+        "key_actions": [
+          "click link 'Skip to main content'",
+          "click link 'DemoBank dashboard'",
+          "click link 'Dashboard'",
+          "click link 'Transactions'",
+          "click link 'Transfer'",
+          "click link 'Profile'",
+          "click button 'Log out'",
+          "click link 'Back to dashboard'"
+        ],
+        "readable_values": [
+          "active customer status (testid: active-customer)",
+          "heading 'Page not found'"
+        ]
+      }
+    ],
+    "entry_action": "Click the button named 'Enter Demo' on route '/' to land on '/dashboard'.",
+    "notes": [
+      "Most authenticated pages share a standard navigation bar containing links to Dashboard, Transactions, Transfer, and Profile, along with a 'Log out' button.",
+      "Accounts have IDs formatted as UUIDs (e.g., 00000000-0000-0000-0000-000000000101 and 00000000-0000-0000-0000-000000000102).",
+      "Filter parameters supported on /transactions correspond to account_id, type, status, start_date, and end_date."
+    ]
+  }
+}

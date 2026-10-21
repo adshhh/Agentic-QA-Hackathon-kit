@@ -1,0 +1,659 @@
+[
+  {
+    "id": "ACC-01",
+    "area": "access",
+    "depth": "deep",
+    "statement": "The landing page provides an Enter Demo action that opens the demo dashboard without requiring a password or real identity information.",
+    "prd_quote": "The landing page provides a clearly labeled **Enter Demo** action. It opens the demo dashboard without requiring a password or real identity information.",
+    "verdict": "PASS",
+    "reason": "2 scenario(s) passed",
+    "planning": {
+      "critique_ok": false,
+      "critique_issues": [
+        "Hardcoded check 'account_cards_count >= 2' and 'reentered_cards >= 2' rely on seed data having at least 2 accounts instead of testing relative dashboard visibility (account_cards_count > 0).",
+        "Scenario 3 checks horizontal overflow ('has_horizontal_overflow is False') on a mobile viewport, which tests an unstated responsiveness requirement outside the scope of ACC-01.",
+        "Scenario 1 uses raw Python 'in' operator ('me_api[\"body\"][\"display_name\"] in active_customer') instead of the supported 'contains()' helper."
+      ],
+      "critique_applied": true
+    },
+    "scenarios": [
+      {
+        "status": "PASS",
+        "reason": "all checks passed",
+        "attempts": [
+          {
+            "revision": 0,
+            "plan": {
+              "scenario": "Landing page displays a clear Enter Demo action that opens the dashboard without requesting credentials",
+              "scenario_type": "normal",
+              "technique": "equivalence partitioning",
+              "needs_clean_state": false,
+              "parameter_set": "none",
+              "steps": [
+                {
+                  "action": "goto",
+                  "by": "none",
+                  "locator": null,
+                  "name": null,
+                  "value": "/",
+                  "save_as": null,
+                  "optional": false
+                },
+                {
+                  "action": "read_text",
+                  "by": "role",
+                  "locator": "button",
+                  "name": "Enter Demo",
+                  "value": null,
+                  "save_as": "button_label",
+                  "optional": false
+                },
+                {
+                  "action": "read_count",
+                  "by": "role",
+                  "locator": "textbox",
+                  "name": null,
+                  "value": null,
+                  "save_as": "inputs_count",
+                  "optional": false
+                },
+                {
+                  "action": "click",
+                  "by": "role",
+                  "locator": "button",
+                  "name": "Enter Demo",
+                  "value": null,
+                  "save_as": null,
+                  "optional": false
+                },
+                {
+                  "action": "read_url",
+                  "by": "none",
+                  "locator": null,
+                  "name": null,
+                  "value": null,
+                  "save_as": "current_url",
+                  "optional": false
+                },
+                {
+                  "action": "read_text",
+                  "by": "testid",
+                  "locator": "active-customer",
+                  "name": null,
+                  "value": null,
+                  "save_as": "active_customer",
+                  "optional": false
+                },
+                {
+                  "action": "read_count",
+                  "by": "testid",
+                  "locator": "account-card",
+                  "name": null,
+                  "value": null,
+                  "save_as": "account_cards_count",
+                  "optional": false
+                },
+                {
+                  "action": "read_api",
+                  "by": "none",
+                  "locator": null,
+                  "name": null,
+                  "value": "/api/me",
+                  "save_as": "me_api",
+                  "optional": false
+                }
+              ],
+              "checks": [
+                {
+                  "description": "Enter Demo action is present on the landing page without requiring credential input fields (PRD: without requiring a password or real identity information)",
+                  "kind": "functional",
+                  "expression": "button_label is not None and contains(button_label, 'Enter Demo') and inputs_count == 0",
+                  "subjective_question": null,
+                  "subject_var": null
+                },
+                {
+                  "description": "Clicking Enter Demo navigates directly to the dashboard view",
+                  "kind": "functional",
+                  "expression": "current_url == '/dashboard'",
+                  "subjective_question": null,
+                  "subject_var": null
+                },
+                {
+                  "description": "Dashboard views and account cards become visible in the UI",
+                  "kind": "functional",
+                  "expression": "active_customer is not None and account_cards_count > 0",
+                  "subjective_question": null,
+                  "subject_var": null
+                },
+                {
+                  "description": "Session is created server-side and authenticated customer matches UI",
+                  "kind": "cross_source",
+                  "expression": "me_api['status'] == 200 and contains(active_customer, me_api['body']['display_name'])",
+                  "subjective_question": null,
+                  "subject_var": null
+                },
+                {
+                  "description": "Enter Demo action is clearly labeled on the landing page (PRD: clearly labeled Enter Demo action)",
+                  "kind": "subjective",
+                  "expression": "button_label is not None and len(strip(button_label)) > 0",
+                  "subjective_question": "Does this button clearly present itself as an action to enter the demo?",
+                  "subject_var": "button_label"
+                }
+              ]
+            },
+            "validation_problems": [],
+            "runs": [
+              {
+                "param": null,
+                "db_reset": false,
+                "outcome": "PASS",
+                "reason": "all checks passed",
+                "checks": [
+                  {
+                    "description": "Enter Demo action is present on the landing page without requiring credential input fields (PRD: without requiring a password or real identity information)",
+                    "kind": "functional",
+                    "expression": "button_label is not None and contains(button_label, 'Enter Demo') and inputs_count == 0",
+                    "status": "pass",
+                    "detail": "",
+                    "observed": {
+                      "button_label": "Enter Demo",
+                      "inputs_count": 0
+                    }
+                  },
+                  {
+                    "description": "Clicking Enter Demo navigates directly to the dashboard view",
+                    "kind": "functional",
+                    "expression": "current_url == '/dashboard'",
+                    "status": "pass",
+                    "detail": "",
+                    "observed": {
+                      "current_url": "/dashboard"
+                    }
+                  },
+                  {
+                    "description": "Dashboard views and account cards become visible in the UI",
+                    "kind": "functional",
+                    "expression": "active_customer is not None and account_cards_count > 0",
+                    "status": "pass",
+                    "detail": "",
+                    "observed": {
+                      "account_cards_count": 2,
+                      "active_customer": "Signed in as\nAvery Demo"
+                    }
+                  },
+                  {
+                    "description": "Session is created server-side and authenticated customer matches UI",
+                    "kind": "cross_source",
+                    "expression": "me_api['status'] == 200 and contains(active_customer, me_api['body']['display_name'])",
+                    "status": "pass",
+                    "detail": "",
+                    "observed": {
+                      "active_customer": "Signed in as\nAvery Demo",
+                      "me_api": {
+                        "status": 200,
+                        "body": {
+                          "id": "00000000-0000-0000-0000-000000000001",
+                          "display_name": "Avery Demo",
+                          "masked_email": "a***@example.test"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "description": "Enter Demo action is clearly labeled on the landing page (PRD: clearly labeled Enter Demo action)",
+                    "kind": "subjective",
+                    "expression": "button_label is not None and len(strip(button_label)) > 0",
+                    "status": "pass",
+                    "detail": "judge: Does this button clearly present itself as an action to enter the demo? -> True (The observed text is 'Enter Demo', which directly and clearly states the action to enter the demo.)",
+                    "observed": {
+                      "button_label": "Enter Demo"
+                    }
+                  }
+                ],
+                "steps": [
+                  {
+                    "n": 1,
+                    "action": "goto",
+                    "by": "none",
+                    "locator": null,
+                    "name": null,
+                    "value": "/",
+                    "ok": true,
+                    "url": "/",
+                    "network": [
+                      "GET /health 200"
+                    ],
+                    "screenshot": "screenshots/ACC-01-s1-r0-v00-s01.jpg"
+                  },
+                  {
+                    "n": 2,
+                    "action": "read_text",
+                    "by": "role",
+                    "locator": "button",
+                    "name": "Enter Demo",
+                    "value": null,
+                    "saved": {
+                      "button_label": "Enter Demo"
+                    },
+                    "ok": true,
+                    "url": "/",
+                    "network": []
+                  },
+                  {
+                    "n": 3,
+                    "action": "read_count",
+                    "by": "role",
+                    "locator": "textbox",
+                    "name": null,
+                    "value": null,
+                    "saved": {
+                      "inputs_count": 0
+                    },
+                    "ok": true,
+                    "url": "/",
+                    "network": []
+                  },
+                  {
+                    "n": 4,
+                    "action": "click",
+                    "by": "role",
+                    "locator": "button",
+                    "name": "Enter Demo",
+                    "value": null,
+                    "ok": true,
+                    "url": "/dashboard",
+                    "network": [
+                      "POST /api/demo/session 201",
+                      "GET /health 200",
+                      "GET /api/me 200",
+                      "GET /api/accounts 200"
+                    ],
+                    "screenshot": "screenshots/ACC-01-s1-r0-v00-s04.jpg"
+                  },
+                  {
+                    "n": 5,
+                    "action": "read_url",
+                    "by": "none",
+                    "locator": null,
+                    "name": null,
+                    "value": null,
+                    "saved": {
+                      "current_url": "/dashboard"
+                    },
+                    "ok": true,
+                    "url": "/dashboard",
+                    "network": []
+                  },
+                  {
+                    "n": 6,
+                    "action": "read_text",
+                    "by": "testid",
+                    "locator": "active-customer",
+                    "name": null,
+                    "value": null,
+                    "saved": {
+                      "active_customer": "Signed in as\nAvery Demo"
+                    },
+                    "ok": true,
+                    "url": "/dashboard",
+                    "network": []
+                  },
+                  {
+                    "n": 7,
+                    "action": "read_count",
+                    "by": "testid",
+                    "locator": "account-card",
+                    "name": null,
+                    "value": null,
+                    "saved": {
+                      "account_cards_count": 2
+                    },
+                    "ok": true,
+                    "url": "/dashboard",
+                    "network": []
+                  },
+                  {
+                    "n": 8,
+                    "action": "read_api",
+                    "by": "none",
+                    "locator": null,
+                    "name": null,
+                    "value": "/api/me",
+                    "saved": {
+                      "me_api": {
+                        "status": 200,
+                        "body": {
+                          "id": "00000000-0000-0000-0000-000000000001",
+                          "display_name": "Avery Demo",
+                          "masked_email": "a***@example.test"
+                        }
+                      }
+                    },
+                    "ok": true,
+                    "url": "/dashboard",
+                    "network": []
+                  }
+                ],
+                "recoveries": 0,
+                "console_errors": [],
+                "screenshots": [
+                  "screenshots/ACC-01-s1-r0-v00-s01.jpg",
+                  "screenshots/ACC-01-s1-r0-v00-s04.jpg",
+                  "screenshots/ACC-01-s1-r0-v00-final.jpg"
+                ],
+                "duration_s": 1.36
+              }
+            ],
+            "outcome": "PASS"
+          }
+        ],
+        "scenario": "Landing page displays a clear Enter Demo action that opens the dashboard without requesting credentials",
+        "scenario_type": "normal",
+        "technique": "equivalence partitioning"
+      },
+      {
+        "status": "PASS",
+        "reason": "all checks passed",
+        "attempts": [
+          {
+            "revision": 0,
+            "plan": {
+              "scenario": "Re-entering demo via Enter Demo after logging out opens the dashboard without credentials",
+              "scenario_type": "normal",
+              "technique": "state-transition testing",
+              "needs_clean_state": true,
+              "parameter_set": "none",
+              "steps": [
+                {
+                  "action": "start_session",
+                  "by": "none",
+                  "locator": null,
+                  "name": null,
+                  "value": null,
+                  "save_as": null,
+                  "optional": false
+                },
+                {
+                  "action": "click",
+                  "by": "role",
+                  "locator": "button",
+                  "name": "Log out",
+                  "value": null,
+                  "save_as": null,
+                  "optional": false
+                },
+                {
+                  "action": "goto",
+                  "by": "none",
+                  "locator": null,
+                  "name": null,
+                  "value": "/",
+                  "save_as": null,
+                  "optional": false
+                },
+                {
+                  "action": "read_text",
+                  "by": "role",
+                  "locator": "button",
+                  "name": "Enter Demo",
+                  "value": null,
+                  "save_as": "logout_landing_btn",
+                  "optional": false
+                },
+                {
+                  "action": "click",
+                  "by": "role",
+                  "locator": "button",
+                  "name": "Enter Demo",
+                  "value": null,
+                  "save_as": null,
+                  "optional": false
+                },
+                {
+                  "action": "read_url",
+                  "by": "none",
+                  "locator": null,
+                  "name": null,
+                  "value": null,
+                  "save_as": "reentered_url",
+                  "optional": false
+                },
+                {
+                  "action": "read_count",
+                  "by": "testid",
+                  "locator": "account-card",
+                  "name": null,
+                  "value": null,
+                  "save_as": "reentered_cards",
+                  "optional": false
+                },
+                {
+                  "action": "read_api",
+                  "by": "none",
+                  "locator": null,
+                  "name": null,
+                  "value": "/api/me",
+                  "save_as": "reentered_me_api",
+                  "optional": false
+                }
+              ],
+              "checks": [
+                {
+                  "description": "Enter Demo button is accessible again on the landing page after logout",
+                  "kind": "functional",
+                  "expression": "logout_landing_btn is not None and contains(logout_landing_btn, 'Enter Demo')",
+                  "subjective_question": null,
+                  "subject_var": null
+                },
+                {
+                  "description": "Navigates to /dashboard and renders account cards without prompting for credentials",
+                  "kind": "functional",
+                  "expression": "reentered_url == '/dashboard' and reentered_cards > 0",
+                  "subjective_question": null,
+                  "subject_var": null
+                },
+                {
+                  "description": "Backend session is successfully established",
+                  "kind": "side_effect",
+                  "expression": "reentered_me_api['status'] == 200 and reentered_me_api['body']['id'] is not None",
+                  "subjective_question": null,
+                  "subject_var": null
+                }
+              ]
+            },
+            "validation_problems": [],
+            "runs": [
+              {
+                "param": null,
+                "db_reset": true,
+                "outcome": "PASS",
+                "reason": "all checks passed",
+                "checks": [
+                  {
+                    "description": "Enter Demo button is accessible again on the landing page after logout",
+                    "kind": "functional",
+                    "expression": "logout_landing_btn is not None and contains(logout_landing_btn, 'Enter Demo')",
+                    "status": "pass",
+                    "detail": "",
+                    "observed": {
+                      "logout_landing_btn": "Enter Demo"
+                    }
+                  },
+                  {
+                    "description": "Navigates to /dashboard and renders account cards without prompting for credentials",
+                    "kind": "functional",
+                    "expression": "reentered_url == '/dashboard' and reentered_cards > 0",
+                    "status": "pass",
+                    "detail": "",
+                    "observed": {
+                      "reentered_cards": 2,
+                      "reentered_url": "/dashboard"
+                    }
+                  },
+                  {
+                    "description": "Backend session is successfully established",
+                    "kind": "side_effect",
+                    "expression": "reentered_me_api['status'] == 200 and reentered_me_api['body']['id'] is not None",
+                    "status": "pass",
+                    "detail": "",
+                    "observed": {
+                      "reentered_me_api": {
+                        "status": 200,
+                        "body": {
+                          "id": "00000000-0000-0000-0000-000000000001",
+                          "display_name": "Avery Demo",
+                          "masked_email": "a***@example.test"
+                        }
+                      }
+                    }
+                  }
+                ],
+                "steps": [
+                  {
+                    "n": 1,
+                    "action": "start_session",
+                    "by": "none",
+                    "locator": null,
+                    "name": null,
+                    "value": null,
+                    "ok": true,
+                    "url": "/dashboard",
+                    "network": [
+                      "GET /health 200",
+                      "POST /api/demo/session 201",
+                      "GET /health 200",
+                      "GET /api/me 200",
+                      "GET /api/accounts 200"
+                    ],
+                    "screenshot": "screenshots/ACC-01-s2-r0-v00-s01.jpg"
+                  },
+                  {
+                    "n": 2,
+                    "action": "click",
+                    "by": "role",
+                    "locator": "button",
+                    "name": "Log out",
+                    "value": null,
+                    "ok": true,
+                    "url": "/dashboard",
+                    "network": [],
+                    "screenshot": "screenshots/ACC-01-s2-r0-v00-s02.jpg"
+                  },
+                  {
+                    "n": 3,
+                    "action": "goto",
+                    "by": "none",
+                    "locator": null,
+                    "name": null,
+                    "value": "/",
+                    "ok": true,
+                    "url": "/",
+                    "network": [
+                      "GET /health 200"
+                    ],
+                    "screenshot": "screenshots/ACC-01-s2-r0-v00-s03.jpg"
+                  },
+                  {
+                    "n": 4,
+                    "action": "read_text",
+                    "by": "role",
+                    "locator": "button",
+                    "name": "Enter Demo",
+                    "value": null,
+                    "saved": {
+                      "logout_landing_btn": "Enter Demo"
+                    },
+                    "ok": true,
+                    "url": "/",
+                    "network": []
+                  },
+                  {
+                    "n": 5,
+                    "action": "click",
+                    "by": "role",
+                    "locator": "button",
+                    "name": "Enter Demo",
+                    "value": null,
+                    "ok": true,
+                    "url": "/dashboard",
+                    "network": [
+                      "POST /api/demo/session 201",
+                      "GET /api/me 200",
+                      "GET /health 200",
+                      "GET /api/accounts 200"
+                    ],
+                    "screenshot": "screenshots/ACC-01-s2-r0-v00-s05.jpg"
+                  },
+                  {
+                    "n": 6,
+                    "action": "read_url",
+                    "by": "none",
+                    "locator": null,
+                    "name": null,
+                    "value": null,
+                    "saved": {
+                      "reentered_url": "/dashboard"
+                    },
+                    "ok": true,
+                    "url": "/dashboard",
+                    "network": []
+                  },
+                  {
+                    "n": 7,
+                    "action": "read_count",
+                    "by": "testid",
+                    "locator": "account-card",
+                    "name": null,
+                    "value": null,
+                    "saved": {
+                      "reentered_cards": 2
+                    },
+                    "ok": true,
+                    "url": "/dashboard",
+                    "network": []
+                  },
+                  {
+                    "n": 8,
+                    "action": "read_api",
+                    "by": "none",
+                    "locator": null,
+                    "name": null,
+                    "value": "/api/me",
+                    "saved": {
+                      "reentered_me_api": {
+                        "status": 200,
+                        "body": {
+                          "id": "00000000-0000-0000-0000-000000000001",
+                          "display_name": "Avery Demo",
+                          "masked_email": "a***@example.test"
+                        }
+                      }
+                    },
+                    "ok": true,
+                    "url": "/dashboard",
+                    "network": []
+                  }
+                ],
+                "recoveries": 0,
+                "console_errors": [],
+                "screenshots": [
+                  "screenshots/ACC-01-s2-r0-v00-s01.jpg",
+                  "screenshots/ACC-01-s2-r0-v00-s02.jpg",
+                  "screenshots/ACC-01-s2-r0-v00-s03.jpg",
+                  "screenshots/ACC-01-s2-r0-v00-s05.jpg",
+                  "screenshots/ACC-01-s2-r0-v00-final.jpg"
+                ],
+                "duration_s": 1.51
+              }
+            ],
+            "outcome": "PASS"
+          }
+        ],
+        "scenario": "Re-entering demo via Enter Demo after logging out opens the dashboard without credentials",
+        "scenario_type": "normal",
+        "technique": "state-transition testing"
+      }
+    ],
+    "cost_usd": 0.051189
+  }
+]

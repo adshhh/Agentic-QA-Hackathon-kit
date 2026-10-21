@@ -17,8 +17,11 @@ from .schemas import ReportNarrative
 
 NARRATIVE_SYSTEM = """You write the narrative sections of a QA audit report for developers who did not
 watch the test run. Use ONLY the facts in the provided results. Refer to requirements by id. Be
-specific and concise: what failed, why it matters to a user, and what to fix. Do not restate every
-pass. Mention honest limitations (unverified items, lightly-tested areas, local vs hosted target)."""
+specific and concise: what failed, the concrete observed values that prove it (e.g. balance before
+and after, the input used), why it matters to a user, and what to fix. Do not restate every pass.
+Mention honest limitations (unverified items and why, lightly-tested areas, local vs hosted target).
+Keep each key finding to 1-2 sentences. When stating how many requirements were tested, passed,
+failed or unverified, use exactly the numbers in "counts"."""
 
 NUMBER_RE = re.compile(r"\$?\d[\d,]*(?:\.\d+)?")
 
@@ -75,14 +78,29 @@ def _strip_unsupported(text: str, facts: str) -> tuple[str, list[str]]:
 
 
 def narrative(llm: LLM, results: list[dict[str, Any]], context: dict[str, Any]) -> tuple[ReportNarrative | None, list[str]]:
-    compact = [
-        {"id": r["id"], "area": r.get("area"), "depth": r.get("depth"), "verdict": r["verdict"],
-         "reason": r["reason"][:400], "statement": r.get("statement"), "prd_quote": r.get("prd_quote")}
-        for r in results
-    ]
+    compact = []
+    for r in results:
+        item = {"id": r["id"], "area": r.get("area"), "depth": r.get("depth"), "verdict": r["verdict"],
+                "reason": r["reason"][:400], "statement": r.get("statement"), "prd_quote": r.get("prd_quote")}
+        if r["verdict"] == "FAIL":  # give the narrative concrete evidence, not just the verdict
+            evidence = []
+            for s in r.get("scenarios", []):
+                if s["status"] != "FAIL":
+                    continue
+                runs = _final_attempt(s).get("runs") or []
+                for run in [x for x in runs if x["outcome"] == "FAIL"][:3]:
+                    evidence.append({
+                        "scenario": s["scenario"], "input": run.get("param"),
+                        "failed_checks": [{"expected": c["description"],
+                                           "observed": json.dumps(c["observed"], default=str)[:300]}
+                                          for c in run["checks"] if c["status"] == "fail"][:3],
+                    })
+            item["evidence"] = evidence[:4]
+        compact.append(item)
+    counts = dict(Counter(r["verdict"] for r in results)) | {"requirements_tested": len(results)}
     try:
         parsed: ReportNarrative = llm.generate(
-            "report", json.dumps({"context": context, "results": compact}, default=str),
+            "report", json.dumps({"counts": counts, "context": context, "results": compact}, default=str),
             system=NARRATIVE_SYSTEM, schema=ReportNarrative,
         ).parsed
     except LLMError:

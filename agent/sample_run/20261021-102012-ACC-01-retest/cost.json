@@ -1,0 +1,48 @@
+{
+  "pricing_date": "2026-10-21",
+  "total_calls": 4,
+  "failed_calls": 0,
+  "total_input_tokens": 13465,
+  "total_cached_input_tokens": 0,
+  "total_output_tokens": 11303,
+  "total_cost_usd": 0.052485,
+  "by_phase": {
+    "plan": {
+      "calls": 1.0,
+      "input_tokens": 5725.0,
+      "cached_input_tokens": 0.0,
+      "output_tokens": 3922.0,
+      "cost_usd": 0.01900125
+    },
+    "critique": {
+      "calls": 1.0,
+      "input_tokens": 7300.0,
+      "cached_input_tokens": 0.0,
+      "output_tokens": 7081.0,
+      "cost_usd": 0.03202875
+    },
+    "judge": {
+      "calls": 1.0,
+      "input_tokens": 62.0,
+      "cached_input_tokens": 0.0,
+      "output_tokens": 30.0,
+      "cost_usd": 0.000159
+    },
+    "report": {
+      "calls": 1.0,
+      "input_tokens": 378.0,
+      "cached_input_tokens": 0.0,
+      "output_tokens": 270.0,
+      "cost_usd": 0.001296
+    }
+  },
+  "by_model": {
+    "gemini-3.8-flash": {
+      "calls": 4.0,
+      "input_tokens": 13465.0,
+      "cached_input_tokens": 0.0,
+      "output_tokens": 11303.0,
+      "cost_usd": 0.052485000000000004
+    }
+  }
+}

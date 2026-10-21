@@ -1,0 +1,13 @@
+{
+  "validation": {
+    "extracted": 32,
+    "kept": 32,
+    "issues": []
+  },
+  "recall": {
+    "inventory_size": 36,
+    "covered": 36,
+    "recall": 1.0,
+    "missed": []
+  }
+}
