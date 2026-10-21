@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qa-agent"
+version = "0.1.0"
+description = "Autonomous PRD-driven QA agent for the DemoBank hackathon target"
+requires-python = ">=3.11"
+dependencies = [
+  "google-genai>=2.32,<3",
+  "openai>=3.35,<4",
+  "playwright>=1.64,<2",
+  "pydantic>=2.14,<3",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=9", "ruff>=0.17"]
+
+[project.scripts]
+qa-agent = "qa_agent.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["qa_agent*"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

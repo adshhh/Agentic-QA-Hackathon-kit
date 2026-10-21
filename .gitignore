@@ -7,3 +7,10 @@ __pycache__/
 *.egg-info/
 
 
+
+# Local-only Claude Code tooling and personal setup notes (not part of the submission)
+CLAUDE.md
+.claude/
+claude-starter-kit/
+venv-direnv-setup.md
+.envrc
