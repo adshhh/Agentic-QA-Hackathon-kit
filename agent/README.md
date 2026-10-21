@@ -105,8 +105,9 @@ Configuration (environment variables, see `.env.example`): `TARGET_URL`, `API_UR
 
 ## Results
 
-**Official sample run:** [sample_run/20261021-092147/report.md](sample_run/20261021-092147/report.md)
-(local copy of DemoBank, database reset between scenarios, headless).
+**Official sample run:** [plain-language summary](sample_run/20261021-092147/SUMMARY.md) (start here) ·
+[full technical report](sample_run/20261021-092147/report.md) (local copy of DemoBank, database reset
+between scenarios, headless).
 
 | | |
 |---|---|
